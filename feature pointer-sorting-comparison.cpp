@@ -2,15 +2,12 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
-// Utility function to print pointer-sorted array
 void printPointerArray(vector<int*>& ptrArr) {
     for (int* ptr : ptrArr)
         cout << *ptr << " ";
     cout << endl;
 }
 
-// Bubble Sort
 void bubbleSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 0; i < n - 1; i++)
@@ -19,7 +16,6 @@ void bubbleSort(vector<int*>& ptrArr) {
                 swap(ptrArr[j], ptrArr[j + 1]);
 }
 
-// Selection Sort
 void selectionSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 0; i < n - 1; i++) {
@@ -31,7 +27,6 @@ void selectionSort(vector<int*>& ptrArr) {
     }
 }
 
-// Insertion Sort
 void insertionSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 1; i < n; i++) {
@@ -45,7 +40,6 @@ void insertionSort(vector<int*>& ptrArr) {
     }
 }
 
-// Quick Sort
 void quickSort(vector<int*>& ptrArr, int low, int high) {
     if (low < high) {
         int pivot = *ptrArr[high];
@@ -67,28 +61,26 @@ void quickSort(vector<int*>& ptrArr, int low, int high) {
 int main() {
     vector<int> data = {9, 4, 7, 3, 2, 8, 5};
 
-    // Bubble Sort
     vector<int*> ptrBubble;
     for (int& val : data) ptrBubble.push_back(&val);
     bubbleSort(ptrBubble);
     cout << "Bubble Sort: ";
     printPointerArray(ptrBubble);
 
-    // Selection Sort
     vector<int*> ptrSelection;
     for (int& val : data) ptrSelection.push_back(&val);
     selectionSort(ptrSelection);
     cout << "Selection Sort: ";
     printPointerArray(ptrSelection);
 
-    // Insertion Sort
+    
     vector<int*> ptrInsertion;
     for (int& val : data) ptrInsertion.push_back(&val);
     insertionSort(ptrInsertion);
     cout << "Insertion Sort: ";
     printPointerArray(ptrInsertion);
 
-    // Quick Sort
+
     vector<int*> ptrQuick;
     for (int& val : data) ptrQuick.push_back(&val);
     quickSort(ptrQuick, 0, ptrQuick.size() - 1);
