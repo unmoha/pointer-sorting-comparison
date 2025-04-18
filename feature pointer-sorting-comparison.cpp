@@ -2,12 +2,15 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-void printPointerArray(vector<int*>& ptrArr) {
-    for (int* ptr : ptrArr)
+
+// Print the values pointed to by a pointer array
+void printPointerArray(const vector<int*>& ptrArr) {
+    for (const int* ptr : ptrArr)
         cout << *ptr << " ";
     cout << endl;
 }
 
+// Bubble Sort (Pointer-based)
 void bubbleSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 0; i < n - 1; i++)
@@ -16,17 +19,20 @@ void bubbleSort(vector<int*>& ptrArr) {
                 swap(ptrArr[j], ptrArr[j + 1]);
 }
 
+// Selection Sort (Pointer-based)
 void selectionSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 0; i < n - 1; i++) {
         int min_idx = i;
-        for (int j = i + 1; j < n; j++)
+        for (int j = i + 1; j < n; j++) {
             if (*ptrArr[j] < *ptrArr[min_idx])
                 min_idx = j;
+        }
         swap(ptrArr[min_idx], ptrArr[i]);
     }
 }
 
+// Insertion Sort (Pointer-based)
 void insertionSort(vector<int*>& ptrArr) {
     int n = ptrArr.size();
     for (int i = 1; i < n; i++) {
@@ -40,6 +46,7 @@ void insertionSort(vector<int*>& ptrArr) {
     }
 }
 
+// Quick Sort Helper (Pointer-based)
 void quickSort(vector<int*>& ptrArr, int low, int high) {
     if (low < high) {
         int pivot = *ptrArr[high];
@@ -58,31 +65,49 @@ void quickSort(vector<int*>& ptrArr, int low, int high) {
     }
 }
 
-int main() {
-    vector<int> data = {9, 4, 7, 3, 2, 8, 5};
+// Create a vector of pointers from a data vector
+vector<int*> makePointerArray(vector<int>& data) {
+    vector<int*> ptrs;
+    for (int& val : data)
+        ptrs.push_back(&val);
+    return ptrs;
+}
 
-    vector<int*> ptrBubble;
-    for (int& val : data) ptrBubble.push_back(&val);
+// Verify if pointer array is sorted
+bool isSorted(const vector<int*>& ptrArr) {
+    for (size_t i = 1; i < ptrArr.size(); ++i)
+        if (*ptrArr[i - 1] > *ptrArr[i])
+            return false;
+    return true;
+}
+
+int main() {
+    vector<int> original = {9, 4, 7, 3, 2, 8, 5};
+
+    // Bubble Sort
+    vector<int> bubbleData = original;
+    vector<int*> ptrBubble = makePointerArray(bubbleData);
     bubbleSort(ptrBubble);
     cout << "Bubble Sort: ";
     printPointerArray(ptrBubble);
 
-    vector<int*> ptrSelection;
-    for (int& val : data) ptrSelection.push_back(&val);
+    // Selection Sort
+    vector<int> selectionData = original;
+    vector<int*> ptrSelection = makePointerArray(selectionData);
     selectionSort(ptrSelection);
     cout << "Selection Sort: ";
     printPointerArray(ptrSelection);
 
-    
-    vector<int*> ptrInsertion;
-    for (int& val : data) ptrInsertion.push_back(&val);
+    // Insertion Sort
+    vector<int> insertionData = original;
+    vector<int*> ptrInsertion = makePointerArray(insertionData);
     insertionSort(ptrInsertion);
     cout << "Insertion Sort: ";
     printPointerArray(ptrInsertion);
 
-
-    vector<int*> ptrQuick;
-    for (int& val : data) ptrQuick.push_back(&val);
+    // Quick Sort
+    vector<int> quickData = original;
+    vector<int*> ptrQuick = makePointerArray(quickData);
     quickSort(ptrQuick, 0, ptrQuick.size() - 1);
     cout << "Quick Sort: ";
     printPointerArray(ptrQuick);
